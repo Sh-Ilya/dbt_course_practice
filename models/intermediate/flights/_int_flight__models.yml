@@ -1,0 +1,29 @@
+models:
+  - name: fct_bookings
+    description: Факты бронирования
+    docs:
+        show: true
+        node_color: red
+    latest_version: 1
+    versions:
+      - v: 1
+    config:
+      contract: {enforced: true}
+    meta:
+      owner: "qweasdzxc"
+      status: "dcdcc"
+    columns:
+      - name: book_ref
+        data_type: varchar(8)
+        constraints:
+          - type: not_null
+      - name: book_date
+        data_type: timestamptz
+        quote: false
+      - name: total_amount
+        data_type: numeric(10, 2)
+        constraints:
+          - type: check
+            expression: "total_amount > 0"
+        tests:
+          - not_null

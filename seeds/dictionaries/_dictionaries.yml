@@ -1,0 +1,6 @@
+seed:
+  - name: city_region
+    config:
+      column_types:
+        city: varchar(50)
+        region: varchar(50)

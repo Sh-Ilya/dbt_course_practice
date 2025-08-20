@@ -1,0 +1,37 @@
+sources:
+  - name: demo_src
+    description: Данные из БД авиаперелёты
+    tables:
+      - name: aircrafts
+        description: Модели самолётов
+        columns:
+          - name: aircraft_code
+            description: >
+              Код модели самолёта
+              Состоит из з-х латинских букв
+            tests:
+              - not_null
+              - unique
+          - name: model
+            description: Название модели самолёта
+      - name: airports
+        description: Аэропорты
+        columns:
+          - name: city
+            description: Город
+      - name: seats
+        description: Места в самолётах
+      - name: bookings
+        freshness: 
+            warn_after:
+              count: 600000000
+              period: hour
+            error_after:
+              count: 10000
+              period: day
+            filter: current_timestamp::date - book_date::date < 10000
+        loaded_at_field: book_date::timestamp
+        columns:
+        - name: book_ref
+        - name: book_date
+        - name: total_amount
